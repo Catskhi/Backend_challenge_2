@@ -3,7 +3,7 @@ import { validateSignUpFields } from '../middleware/userValidation'
 import { User } from '../models/User'
 import { validationResult } from 'express-validator'
 import { compare, genSalt, hash } from 'bcrypt'
-import { sign } from 'jsonwebtoken'
+import { TokenExpiredError, sign, verify } from 'jsonwebtoken'
 import 'dotenv/config'
 const userRouter = Router()
 
@@ -97,7 +97,7 @@ userRouter.post('/signin', async (req: Request, res: Response) => {
         data_criacao: user.createdAt,
         data_atualizacao: user.updatedAt,
         ultimo_login: user.ultimo_login,
-        token: token
+        token
       })
     }
   } catch (error) {
@@ -116,13 +116,25 @@ userRouter.post('/find', async (req: Request, res: Response) => {
         mensagem: 'Usuário inválido'
       })
     }
-    const token = req.header('Authorization')
+    const token = req.header('Authorization')?.split(' ')[1]
+    if (token === undefined) {
+      throw new Error()
+    }
+    verify(token, process.env.SECRET as string)
     res.send({
-      token: token
+      id: user.id,
+      data_criacao: user.createdAt,
+      data_atualizacao: user.updatedAt,
+      ultimo_login: user.ultimo_login
     })
   } catch (error) {
-    res.send({
-      mensagem: 'Ocorreu um erro no sistema.'
+    if (error instanceof TokenExpiredError) {
+      return res.send({
+        mensagem: 'Sessão inválida'
+      })
+    }
+    return res.send({
+      mensagem: 'Não autorizado'
     })
   }
 })
