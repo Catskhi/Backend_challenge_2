@@ -9,14 +9,16 @@ app.use(express.json())
 
 app.use('/', userRouter)
 
+app.get('/', function (req: Request, res: Response) {
+  return res.send({
+    message: 'Bem-vindo à API'
+  })
+})
+
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).send({
     mensagem: 'Endpoint não encontrado'
   })
-})
-
-app.get('/', function (req: Request, res: Response) {
-  return res.send('Bem-vindo à API.')
 })
 
 app.listen(port, () => {
