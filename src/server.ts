@@ -16,9 +16,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 })
 
 app.get('/', function (req: Request, res: Response) {
-  return res.send({
-    mensagem: 'Bem-vindo à API'
-  })
+  return res.send('Bem-vindo à API.')
 })
 
 app.listen(port, () => {
