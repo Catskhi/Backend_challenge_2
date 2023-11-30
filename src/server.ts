@@ -1,4 +1,4 @@
-import express, { type Request, type Response } from 'express'
+import express, { type NextFunction, type Request, type Response } from 'express'
 import connect from '../config/db'
 import userRouter from './routes/users.routes'
 
@@ -8,6 +8,13 @@ const port = process.env.PORT ?? 3000
 app.use(express.json())
 
 app.use('/', userRouter)
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).send({
+    mensagem: 'Endpoint não encontrado'
+  })
+})
+
 app.get('/', function (req: Request, res: Response) {
   return res.send('Bem-vindo à API.')
 })
