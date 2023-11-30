@@ -16,7 +16,7 @@ E os seguintes requisitos desejáveis:
 - Criptografia hash na senha e token.
 
 
-De todos os requisitos listados acima, o único a não ser cumprido foram os testes unitários. Sobre outros requisitos, é valido destacar:
+De todos os requisitos listados acima, o único a não ser cumprido foi a criação de testes unitários. Sobre outros requisitos, é valido destacar:
 - O NPM foi utilizado para a build e NPM Scripts para o task running.
 - A persistência de dados foi feita utilizando do banco de dados não relacional [MongoDB](https://www.mongodb.com/).
 - A padronização de estilo foi feita utilizando ESLint.
