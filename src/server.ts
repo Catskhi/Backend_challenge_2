@@ -9,9 +9,7 @@ app.use(express.json())
 
 app.use('/', userRouter)
 app.get('/', function (req: Request, res: Response) {
-  return res.send({
-    message: 'Bem-vindo à API.'
-  })
+  return res.send('Bem-vindo à API.')
 })
 
 app.listen(port, () => {
