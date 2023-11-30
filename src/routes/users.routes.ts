@@ -108,19 +108,25 @@ userRouter.post('/signin', async (req: Request, res: Response) => {
 })
 
 userRouter.post('/find', async (req: Request, res: Response) => {
-  const { id } = req.body
   try {
+    const token = req.header('Authorization')?.split(' ')[1]
+    let id: number | undefined
+    if (token === undefined) {
+      throw new Error()
+    }
+    verify(token, process.env.SECRET as string, (error, decoded: any) => {
+      if (error !== null) {
+        throw new Error()
+      }
+      id = decoded.id
+    })
+
     const user = await User.findById(id)
     if (user === null) {
       return res.send({
         mensagem: 'Usuário inválido'
       })
     }
-    const token = req.header('Authorization')?.split(' ')[1]
-    if (token === undefined) {
-      throw new Error()
-    }
-    verify(token, process.env.SECRET as string)
     res.send({
       id: user.id,
       data_criacao: user.createdAt,
