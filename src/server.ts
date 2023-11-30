@@ -3,7 +3,7 @@ import connect from '../config/db'
 import userRouter from './routes/users.routes'
 
 const app = express()
-const port = 3000
+const port = process.env.PORT !== null || 3000
 
 app.use(express.json())
 
