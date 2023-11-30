@@ -3,8 +3,14 @@ import 'dotenv/config'
 
 async function connect (): Promise<void> {
   try {
+    let dbUrl: string = ''
+    if (process.env.DB_URL !== '') {
+      dbUrl = process.env.DB_URL as string
+    } else {
+      dbUrl = `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:27017/admin`
+    }
     await mongoose.connect(
-      `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:27017/admin`
+      dbUrl
     )
     console.log('Conectado ao banco de dados.')
   } catch (error) {
