@@ -107,7 +107,7 @@ userRouter.post('/signin', async (req: Request, res: Response) => {
   }
 })
 
-userRouter.post('/find', async (req: Request, res: Response) => {
+userRouter.get('/find', async (req: Request, res: Response) => {
   try {
     const token = req.header('Authorization')?.split(' ')[1]
     let id: number | undefined
