@@ -11,7 +11,7 @@ app.use('/', userRouter)
 
 app.get('/', function (req: Request, res: Response) {
   return res.send({
-    message: 'Bem-vindo à API'
+    mensagem: 'Bem-vindo à API'
   })
 })
 
