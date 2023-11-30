@@ -17,5 +17,5 @@ app.listen(port, () => {
     .catch((error) => {
       console.log(error)
     })
-  console.log(`App listening on port: http://localhost:${port}/`)
+  console.log(`App listening on url: http://localhost:${port}/`)
 })
